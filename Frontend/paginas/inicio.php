@@ -48,7 +48,7 @@ include '../componentes/encabezado.php';
         </div>
     </section>
 
-    <section class=" container-fluid margen-grande">
+    <section class=" container-fluid margen-grande fondo-personalizado">
         <h1 class="mb-4 text-center">¡Ultimas novedades!</h1>
         <div class="row row-cols-1 row-cols-3  g-4">
 
@@ -83,7 +83,7 @@ include '../componentes/encabezado.php';
         </div>
     </section>
 
-<div class="container-fluid my-5">
+<div class="container-fluid margen-grande">
     <h1 class="text-center mb-4">¡Encontranos!</h1>
     <div style="width: 100%; max-width: 100%; height: 350px; overflow: hidden; ">
         <iframe

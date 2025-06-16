@@ -1,4 +1,10 @@
 .margen-grande {
-  margin-top: 7rem;
-  margin-bottom: 7rem;
+  margin-top: 6rem;
+}
+
+.fondo-personalizado {
+  background-color: #e0e0e0;
+  min-height: 10rem;
+  padding-top: 3rem;
+  padding-bottom:5rem;
 }
