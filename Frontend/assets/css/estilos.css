@@ -1,0 +1,305 @@
+/* GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+    line-height: 1.6;
+}
+
+body .top-header + .container{
+    min-height: 60vh;
+}
+
+.alert{
+    font-size: 0.8rem !important;
+    margin-bottom: 0 !important;
+    width: 100% !important;
+}
+
+
+/* ---------------------------------------- */
+
+/* HEADER */
+.top-header .top-bar {
+    background-color: #f1f1f1;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.top-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-links a {
+    margin-left: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.top-links a:hover {
+    text-decoration: underline;
+}
+
+.main-nav {
+    background-color: #222;
+    color: white;
+    padding: 1rem 0;
+}
+
+.nav-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.navbar-nav li a {
+    color: white !important;
+    text-decoration: none;
+    padding: 0.5rem;
+    transition: background 0.3s;
+}
+
+.nav-menu li a:hover {
+    background-color: #f0c040;
+    color: #222;
+}
+
+@media (min-width: 992px){
+    .navbar-expand-lg .navbar-collapse{
+        width: 100%;
+    }
+}
+
+/* ---------------------------------------- */
+
+/* FOOTER */
+.main-footer {
+    background-color: #111;
+    color: white;
+    padding: 2rem 0;
+    font-size: 0.9rem;
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 220px;
+}
+
+.footer-section h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin: 0.3rem 0;
+}
+
+.footer-section a {
+    color: #ddd;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid #333;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+}
+
+/* ---------------------------------------- */
+
+/* PAGINA INICIO */
+.margen-grande {
+  margin-top: 6rem;
+}
+
+.fondo-personalizado {
+  background-color: #e0e0e0;
+  min-height: 10rem;
+  padding-top: 3rem;
+  padding-bottom:5rem;
+}
+
+
+/* ---------------------------------------- */
+
+/* PROMOCIONES PAGINA */
+.filtros-promos {
+    width: 250px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+}
+@media (max-width: 768px){
+    .filtros-promos {
+        width: 100%;
+    }
+}
+
+.filtros-promos h3 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.filtros-promos form {
+    display: flex;
+    flex-direction: column;
+}
+
+.filtros-promos select,
+.filtros-promos input[type="checkbox"],
+.filtros-promos button {
+    margin: 0.25rem 0.5rem 0.25rem 0;
+}
+
+.form-check{
+    padding: 0;
+}
+
+.tarjetas-promos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    flex: 1;
+}
+
+.promo-card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1.3rem !important;
+    align-items: center;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+}
+
+.promo-logo img {
+    height: 50px;
+    width: 120px;
+    object-fit: contain;
+}
+
+.promo-info{
+    width: 100%;
+}
+
+.promo-info h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+.promo-info small {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: #555;
+}
+
+.promo-info .caracteristicas{
+    font-size: 0.9rem;
+}
+
+.btn-solicitar {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.4rem 0.8rem;
+    width: 100%;
+    text-align: center;
+    background-color: #002f75;
+    color: #ffffff;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 13px;
+}
+.btn-solicitar i{
+    font-size: 12px;
+}
+.btn-solicitar:hover{
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* ---------------------------------------- */
+
+/* LOCALES */
+.promo-logo.text-start{
+    width: 100%;
+}
+
+.btn-texto{
+    width: 100%;
+    color: #002f75;
+    font-weight: bold;
+}
+
+/* ---------------------------------------- */
+
+/* DETALLE LOCAL */
+.banner-shopping{
+    min-height: 400px;
+    background-image: url('../imagen/shoppinghall.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+}
+.banner-shopping h2{
+    font-size: 45px;
+    color: white;
+    margin: auto;
+}
+
+.banner-shopping .breadcrumb li {
+    font-size: 0.85rem;
+    color: #bbbbbb;
+}
+.banner-shopping .breadcrumb li a{
+    color: white;
+}
+.banner-shopping .breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    color: white;
+}
+
+.detalleLocal img, .detalleLocal .text-muted, .detalleLocal p:nth-of-type(1){
+    display: none;
+}
