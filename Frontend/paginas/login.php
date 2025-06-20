@@ -36,7 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
 
-  <!-- Header Aqui -->
+<?php
+include '../componentes/encabezado.php';
+?>
 
   <section class="position-relative" style="height: 420px; overflow: hidden;">
       <img src="../assets/imagen/banner.jpg" class="d-block w-100 h-100" alt="Banner principal" style="object-fit: cover; filter: brightness(0.7);">
@@ -71,7 +73,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
   </div>
 
-  <!-- Footer Aqui -->
+    <?php include '../componentes/pie.php'; ?>
+</body>
+
   
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
