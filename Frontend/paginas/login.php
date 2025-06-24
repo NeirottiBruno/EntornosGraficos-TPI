@@ -38,19 +38,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <!-- Sección Login -->
 <div class="container mb-5">
   <div class="row">
-    <h2>Login</h2>
-    <?php if ($mensaje): ?><div class="alert alert-danger"><?= $mensaje ?></div><?php endif; ?>
-    <form method="post">
-      <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
-      <input type="password" name="contrasena" class="form-control mb-2" placeholder="Contraseña" required>
-      <a href="#" class="small d-block text-end">¿Olvidaste tu contraseña?</a>
-      <button class="btn btn-success">Iniciar Sesión</button>
-    </form>
-  
+    <div class="col-md-6">
+      <h2>Login</h2>
+      <?php if ($mensaje): ?><div class="alert alert-danger"><?= $mensaje ?></div><?php endif; ?>
+      <form method="post">
+        <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
+        <input type="password" name="contrasena" class="form-control mb-2" placeholder="Contraseña" required>
+        <a href="#" class="small d-block text-end">¿Olvidaste tu contraseña?</a>
+        <button class="btn btn-success">Iniciar Sesión</button>
+      </form>
+    </div>
+
     <!-- Imagen -->
     <div class="col-md-6 d-flex align-items-center justify-content-center">
       <div class="bg-light text-center p-5 border w-100">
-        <h5>IMAGEN</h5>
+        <img src="../assets/imagen/shoppinghall.jpg" class="img-fluid" alt="Imagen de Login" style="max-width: 100%; height: auto;">
       </div>
     </div>
   </div>

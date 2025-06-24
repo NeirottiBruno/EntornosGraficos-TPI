@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <!-- Imagen -->
     <div class="col-md-6 d-flex align-items-center justify-content-center">
       <div class="bg-light text-center p-5 border w-100">
-        <h5>IMAGEN</h5>
+        <img src="../assets/imagen/shoppinghall.jpg" class="img-fluid" alt="Imagen de Registro" style="max-width: 100%; height: auto;">
       </div>
     </div>
   </div>
