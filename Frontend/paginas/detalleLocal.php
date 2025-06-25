@@ -2,7 +2,6 @@
 include('../componentes/encabezado.php');
 include('../componentes/tarjetaPromocion.php');
 include('../../Backend/bd.php');
-include_once('../../Backend/funciones.php');
 
 $idLocal = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -19,7 +18,7 @@ $sqlPromos = "
     AND fechaHastaPromo >= CURDATE()";
 $resultPromos = $conexion->query($sqlPromos);
 
-// Variables de sesión del cliente -- TEMPORAL ESTO
+// Variables de sesión del cliente
 $usuarioLogueado = isset($_SESSION['usuario']) && $_SESSION['tipo_usuario'] === 'cliente';
 $codUsuario = $_SESSION['cod_usuario'] ?? null;
 $categoriaUsuario = null;
@@ -32,9 +31,11 @@ if ($usuarioLogueado) {
     }
 }
 
+
 // Manejo de solicitud de promoción desde formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solicitar']) && $usuarioLogueado) {
     $codPromoSolicitada = intval($_POST['solicitar']);
+    // Verificar si ya la solicitó
     $verifica = $conexion->query("SELECT * FROM uso_promociones WHERE codPromo = $codPromoSolicitada AND codUsuario = $codUsuario");
     if ($verifica && $verifica->num_rows === 0) {
         $codigo = strtoupper(substr(md5(uniqid(rand(), true)), 0, 8));
@@ -42,10 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solicitar']) && $usua
         $conexion->query("INSERT INTO uso_promociones (codPromo, codUsuario, fechaSolicitud, estado, codigoGenerado)
                           VALUES ($codPromoSolicitada, $codUsuario, '$fecha', 'pendiente', '$codigo')");
     }
+    // Redirigir (para evitar repost al refrescar)
     header("Location: detalleLocal.php?id=$idLocal");
     exit;
 }
 ?>
+
 
 <!-- BANNER -->
 <?php if ($local): ?>
@@ -67,16 +70,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solicitar']) && $usua
         <!-- Descripcion -->
         <div class="text-center mb-5">
             <img src="../assets/imagen/<?= $local['logo'] ?>" alt="Logo <?= $local['nombreLocal'] ?>" class="img-fluid mb-3" style="max-height: 80px;">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p><?= $local['descripcionLocal'] ?></p>
             <div>
-                <i class="fa fa-instagram"></i> &nbsp;
-                <i class="fa fa-facebook"></i> &nbsp;
-                <i class="fa fa-envelope"></i>
+                <a href="#" style="color: black;"><i class="fa-brands fa-instagram"></i></a> &nbsp;
+                <a href="#" style="color: black;"><i class="fa-brands fa-facebook"></i></a> &nbsp;
+                <a href="#" style="color: black;"><i class="fa fa-envelope"></i></a>
             </div>
         </div>
 
         <!-- Promociones activas -->
         <h4 class="mb-3">Promociones</h4>
+        <?php if (!$usuarioLogueado): ?>
+            <div class="alert alert-info" style="margin-bottom: 2rem !important;">Inicia sesión para solicitar una promoción.</div>
+        <?php endif; ?>
         <div class="row detalleLocal">
             <?php if ($resultPromos && $resultPromos->num_rows > 0): ?>
                 <?php while ($promo = $resultPromos->fetch_assoc()): ?>

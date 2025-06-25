@@ -2,11 +2,6 @@
 include('../componentes/encabezado.php');
 include('../../Backend/bd.php');
 
-// SIMULACION sesión de dueño (hasta tener login real) -- BORRAR DESPUES
-$_SESSION['usuario'] = 'giro@shopping.com';
-$_SESSION['tipo_usuario'] = 'dueño de local';
-$_SESSION['cod_usuario'] = 6;
-
 if (!isset($_SESSION['usuario']) || $_SESSION['tipo_usuario'] !== 'dueño de local') {
     header('Location: login.php');
     exit;

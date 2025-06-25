@@ -2,9 +2,6 @@
 include('../componentes/encabezado.php');
 include('../../Backend/bd.php');
 
-// ID del usuario logueado (por ejemplo, desde sesión)
-$usuario_id = 12;
-
 // Obtener datos personales
 $sql_usuario = "SELECT nombreUsuario, categoriaCliente FROM usuarios WHERE codUsuario = $usuario_id";
 $result_usuario = $conexion->query($sql_usuario);

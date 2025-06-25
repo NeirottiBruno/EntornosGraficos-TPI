@@ -3,7 +3,6 @@ include('../componentes/encabezado.php');
 include('../componentes/tarjetaPromocion.php');
 include('../../Backend/bd.php');
 
-
 // Variables para filtros
 $rubro = $_GET['rubro'] ?? '';
 $diasSeleccionados = $_GET['dias'] ?? [];
@@ -27,15 +26,10 @@ if (!empty($diasSeleccionados)) {
 
 $resultado = $conexion->query($sql);
 
-// Datos de sesión OTRA VEZ  TEMPORAL
+// Datos de sesión
 $usuarioLogueado = isset($_SESSION['usuario']) && $_SESSION['tipo_usuario'] === 'cliente';
 $codUsuario = $_SESSION['cod_usuario'] ?? null;
 $categoriaUsuario = null;
-
-// SIMULACION sesión de cliente (hasta tener login real)
-$_SESSION['usuario'] = 'cliente1@shopping.com';
-$_SESSION['tipo_usuario'] = 'cliente';
-$_SESSION['cod_usuario'] = 12;
 
 if ($usuarioLogueado) {
     $sqlCat = "SELECT categoriaCliente FROM usuarios WHERE codUsuario = $codUsuario";
@@ -46,28 +40,28 @@ if ($usuarioLogueado) {
 }
 
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solicitar']) && $usuarioLogueado) {
     $codPromoSolicitada = intval($_POST['solicitar']);
-
     // Verificar si ya la solicitó
     $verifica = $conexion->query("SELECT * FROM uso_promociones WHERE codPromo = $codPromoSolicitada AND codUsuario = $codUsuario");
     if ($verifica && $verifica->num_rows === 0) {
-
         $codigo = strtoupper(substr(md5(uniqid(rand(), true)), 0, 8));
         $fecha = date('Y-m-d');
-
         $conexion->query("INSERT INTO uso_promociones (codPromo, codUsuario, fechaSolicitud, estado, codigoGenerado)
                           VALUES ($codPromoSolicitada, $codUsuario, '$fecha', 'pendiente', '$codigo')");
     }
-
     // Redirigir (para evitar repost al refrescar)
     header("Location: promociones.php");
     exit;
 }
 ?>
 
+
 <div class="container my-4">
+    <?php if ($codUsuario == null): ?>
+        <div class="alert alert-info" style="margin-bottom: 2rem !important;">Inicia sesión para solicitar una promoción.</div>
+    <?php endif; ?>
+
     <div class="row">
 
         <!-- Filtros -->
@@ -124,6 +118,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solicitar']) && $usua
     </div>
 </div>
 
-<?php
-include('../componentes/pie.php');
-?>
+<?php include('../componentes/pie.php'); ?>
