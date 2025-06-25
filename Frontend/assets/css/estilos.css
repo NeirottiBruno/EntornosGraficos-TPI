@@ -387,3 +387,68 @@ body .top-header + .container{
 .detalleLocal img, .detalleLocal .text-muted, .detalleLocal p:nth-of-type(1){
     display: none;
 }
+
+/* ---------------------------------------- */
+
+/* PANEL DUEÑO */
+#tabsPanel .active {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: bold;
+}
+.tab-content h5 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+.tab-content #promos .btn.btn-sm.btn-success{
+    width: 215px;
+    margin-left: 20px;
+}
+
+.panel-container {
+    display: flex;
+    gap: 1rem;
+}
+.panel-menu {
+    width: 200px;
+}
+.panel-menu .nav-link {
+    text-align: left;
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+}
+.panel-content {
+    flex-grow: 1;
+}
+
+@media (max-width: 768px){
+    .panel-container {
+        display: block;
+    }
+    .panel-menu {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+.alert-fade {
+    animation: fadeOut 4s forwards;
+}
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+.modal-body .form-check{
+    padding-left: 2em !important;
+}
+.modal-body .form-check .form-check-input{
+    margin-left: -1.25em !important;
+}
+
+.tab-pane .table td{
+    align-content: center;
+}

@@ -35,11 +35,15 @@ function mostrarTarjetaPromo($promo, $conexion, $usuarioLogueado, $codUsuario, $
             $nivelCliente = $niveles[$categoriaUsuario] ?? 0;
             $nivelPromo = $niveles[$promo['categoriaCliente']] ?? 0;
 
-            if ($nivelCliente >= $nivelPromo) {
+            if ($nivelCliente == 0) {
+                echo "";
+            } else if ($nivelCliente >= $nivelPromo) {
                 if ($estadoUso === 'aprobada') {
-                    echo "<div class='alert alert-success mt-2'>Aprobada. Código de promoción: <strong>$codigoUso</strong></div>";
+                    echo "<div class='alert alert-success'>Aprobada. Código de promoción: <strong>$codigoUso</strong></div>";
                 } elseif ($estadoUso === 'pendiente') {
                     echo "<div class='alert alert-warning mt-2'>Promoción solicitada a la espera de aprobación</div>";
+                } elseif ($estadoUso === 'rechazada') {
+                    echo "<div class='alert alert-danger mt-2'>Soliciud rechazada por el Dueño.</div>";
                 } else {
                     echo '
                     <form method="POST" style="width: 100%;">
@@ -50,7 +54,7 @@ function mostrarTarjetaPromo($promo, $conexion, $usuarioLogueado, $codUsuario, $
                     </form>';
                 }
             } else {
-                echo "<div class='alert alert-danger mt-2'>Tu categoría no puede solicitar esta promoción.</div>";
+                echo "<div class='alert alert-danger'>Tu categoría no puede solicitar esta promoción.</div>";
             }
             ?>
         </div>
