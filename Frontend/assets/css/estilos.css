@@ -150,11 +150,95 @@ body .top-header + .container{
   margin-top: 6rem;
 }
 
+.margen-mapa {
+  margin-top: 6rem;
+  margin-bottom: 2rem;}
+
 .fondo-personalizado {
   background-color: #e0e0e0;
   min-height: 10rem;
   padding-top: 3rem;
   padding-bottom:5rem;
+}
+
+.modern-card {
+    text-decoration: none;
+    transition: transform 0.2s;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 6px 32px 0 rgba(60,60,60,0.12);
+}
+.modern-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 40px 0 rgba(60,60,60,0.18);
+}
+.modern-card-img {
+    height: 320px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 22px;
+}
+.modern-card-overlay {
+    width: 100%;
+    background: linear-gradient(0deg, rgba(30,30,30,0.85) 60%, rgba(30,30,30,0.2) 100%);
+    color: #fff;
+    padding: 32px 28px 24px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0 0 22px 22px;
+    transition: background 0.3s;
+}
+.modern-card-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 12px #111;
+}
+.modern-card-arrow {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin-left: 18px;
+    transition: transform 0.2s;
+}
+.modern-card:hover .modern-card-arrow {
+    transform: translateX(8px) scale(1.1);
+}
+@media (max-width: 767px) {
+    .modern-card-img {
+        height: 220px;
+    }
+    .modern-card-title {
+        font-size: 1.4rem;
+    }
+    .modern-card-arrow {
+        font-size: 1.7rem;
+    }
+    .modern-card-overlay {
+        padding: 18px 14px 14px 14px;
+    }
+}
+
+.novedad-link {
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, transform 0.2s;
+    display: block;
+    height: 100%;
+}
+.novedad-card {
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+.novedad-link:hover .novedad-card {
+    box-shadow: 0 8px 32px rgba(60,60,60,0.18);
+    transform: translateY(-6px) scale(1.02);
+}
+.novedad-link:hover .card-title {
+    color: #02152a;
+    text-decoration: underline;
 }
 
 
