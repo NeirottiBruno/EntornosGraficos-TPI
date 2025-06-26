@@ -23,8 +23,8 @@ $tipo_usuario = $_SESSION['tipo_usuario'] ?? null; // admin / dueño / cliente
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start" style="width: 100%;">
             <span class="welcome-msg">Bienvenido a Shopping Rosario</span>
             <div class="top-links mt-2 mt-md-0">
-                <a href="/Frontend/paginas/login.php"><i class="fa fa-sign-in" style="font-size: 13px; margin-bottom: -2px !important;"></i> Iniciar sesión</a>&nbsp;&nbsp;&nbsp;|&nbsp;
-                <a href="/Frontend/paginas/registro.php"><i class="fa fa-user" style="font-size: 13px; margin-bottom: -2px !important;"></i> Registrarse</a>
+                <a href="/Frontend/paginas/loginPage.php"><i class="fa fa-sign-in" style="font-size: 13px; margin-bottom: -2px !important;"></i> Iniciar sesión</a>&nbsp;&nbsp;&nbsp;|&nbsp;
+                <a href="/Frontend/paginas/registroPage.php"><i class="fa fa-user" style="font-size: 13px; margin-bottom: -2px !important;"></i> Registrarse</a>
             </div>
             </div>
         </div>

@@ -1,32 +1,7 @@
 <?php
 include('../componentes/encabezado.php');
 include('../../Backend/bd.php');
-
-$mensaje = "";
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $nombre = trim($_POST['nombre']);
-  $email = trim($_POST['email']);
-  $pass = $_POST['contrasena'];
-
-  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $mensaje = "Email inválido.";
-  } elseif (strlen($pass) < 6) {
-    $mensaje = "La contraseña debe tener al menos 6 caracteres.";
-  } else {
-    $hash = password_hash($pass, PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("INSERT INTO usuarios (nombre, email, contrasena) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $nombre, $email, $hash);
-    if ($stmt->execute()) {
-      header("Location: login.php");
-      exit;
-    } else {
-      $mensaje = "Error: " . $stmt->error;
-    }
-  }
-}
 ?>
-
 
 <section class="position-relative" style="height: 420px; overflow: hidden;">
     <img src="../assets/imagen/banner.jpg" class="d-block w-100 h-100" alt="Banner principal" style="object-fit: cover; filter: brightness(0.7);">
@@ -43,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="col-12 col-md-6">
       <h2>Registro</h2>
       <?php if ($mensaje): ?><div class="alert alert-danger"><?= $mensaje ?></div><?php endif; ?>
-      <form method="post">
+      <form action=<?php echo '../Backend/registro.php'; ?> method="post">
         <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre completo" required>
         <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
         <input type="password" name="contrasena" class="form-control mb-2" placeholder="Contraseña" required>
