@@ -38,9 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!-- Sección Registro -->
 <div class="container mb-5">
-  <div class="row">
+  <div class="row align-items-center" style="min-height: 80vh;">
     <!-- Formulario -->
-    <div class="col-md-6">
+    <div class="col-12 col-md-6">
       <h2>Registro</h2>
       <?php if ($mensaje): ?><div class="alert alert-danger"><?= $mensaje ?></div><?php endif; ?>
       <form method="post">
@@ -52,13 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
 
     <!-- Imagen -->
-    <div class="col-md-6 d-flex align-items-center justify-content-center">
+    <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
       <div class="bg-light text-center p-5 border w-100">
         <img src="../assets/imagen/shoppinghall.jpg" class="img-fluid" alt="Imagen de Registro" style="max-width: 100%; height: auto;">
       </div>
     </div>
   </div>
 </div>
+
 
 <?php include '../componentes/pie.php'; ?>
 
