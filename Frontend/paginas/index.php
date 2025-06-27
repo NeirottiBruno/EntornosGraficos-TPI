@@ -46,7 +46,7 @@ $result = $conexion->query($sql);
 
 <section class="container-fluid margen-grande fondo-personalizado">
     <h1 class="mb-5 text-center fw-semibold" style="font-size: 2.5rem; letter-spacing: 1px;">
-        ¡Ultimas Novedades!
+        Nuestras últimas Novedades
     </h1>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
         <?php if ($result && $result->num_rows > 0): ?>
@@ -77,20 +77,12 @@ $result = $conexion->query($sql);
 </section>
 
 
-<div class="container-fluid margen-mapa">
-    <h1 class="mb-5 text-center fw-semibold" style="font-size: 2.5rem; letter-spacing: 1px;">
-        ¡Encontranos!
-    </h1>
-    <div style="width: 100%; max-width: 100%; height: 350px; overflow: hidden; ">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26785.77062545234!2d-60.681763919906345!3d-32.94516549056678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab10c3a2cb0f%3A0x5d19f654fdac9e11!2sGALERIA%20PLAZA%20SARMIENTO!5e0!3m2!1ses!2ar!4v1750107627898!5m2!1ses!2ar"
-            width="100%" height="100%" style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </div>
-</div>
-
+<!-- Mapa Google Maps -->
+<section class="container-fluid p-0">
+    <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26785.77062545234!2d-60.681763919906345!3d-32.94516549056678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab10c3a2cb0f%3A0x5d19f654fdac9e11!2sGALERIA%20PLAZA%20SARMIENTO!5e0!3m2!1ses!2ar!4v1750107627898!5m2!1ses!2ar"
+        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
+    </iframe>
+</section>
 
 <?php include '../componentes/pie.php'; ?>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('bd.php');
+include_once('funciones.php');
 header('Content-Type: application/json');
 
 // Verificar sesión y tipo
@@ -29,5 +30,17 @@ $sql = "
 ";
 
 $ok = $conexion->query($sql);
+
+if ($ok && $accion === 'aprobada') {
+    // Obtener el codUsuario del cliente al que pertenece la solicitud
+    $sql_cliente = "SELECT codUsuario FROM uso_promociones WHERE id = $id";
+    $res_cliente = $conexion->query($sql_cliente);
+    
+    if ($res_cliente && $res_cliente->num_rows > 0) {
+        $usuario_cliente = $res_cliente->fetch_assoc()['codUsuario'];
+        verificarCategoriaCliente($conexion, $usuario_cliente); // Esto va a actualizar o no la categoría del cliente
+    }
+}
+
 echo json_encode(['ok' => $ok]);
 ?>

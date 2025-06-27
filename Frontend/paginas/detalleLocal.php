@@ -15,7 +15,7 @@ $sqlPromos = "
     SELECT * FROM promociones 
     WHERE codLocal = $idLocal 
     AND estadoPromo = 'aprobada' 
-    AND fechaHastaPromo >= CURDATE()";
+    AND CURDATE() <= fechaHastaPromo";
 $resultPromos = $conexion->query($sqlPromos);
 
 // Variables de sesión del cliente
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solicitar']) && $usua
                     ?>
                 <?php endwhile; ?>
             <?php else: ?>
-                <p>No hay promociones activas en este momento.</p>
+                <p>No hay promociones activas para este local en este momento.</p>
             <?php endif; ?>
         </div>
     <?php else: ?>

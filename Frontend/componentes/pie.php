@@ -1,10 +1,17 @@
-<footer class="main-footer">
+<footer class="main-footer bg-dark">
     <div class="container footer-grid">
         <div class="footer-section">
-            <h4>Contacto</h4>
-            <p>San Luis 1234, Rosario, Santa Fe</p>
-            <p><i class="fa fa-phone"></i> 341-1234567</p>
-            <p><i class="fa fa-envelope"></i> info@shoppingrosario.com</p>
+            <a class="navbar-brand mb-0" href="/Frontend/paginas/index.php"><img class="logo-principal" alt="Logo Rosario Plaza" width="180" src="../assets/imagen/logo-rosario-plaza-shopping.png"></a>
+        </div>
+
+        <div class="footer-section">
+            <h4>Enlaces útiles</h4>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Novedades</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
         </div>
 
         <div class="footer-section">
@@ -12,19 +19,21 @@
             <ul>
                 <li><a href="#">Locales</a></li>
                 <li><a href="#">Promociones</a></li>
-                <li><a href="#">Novedades</a></li>
-                <li><a href="#">Mapa del sitio</a></li>
+                <li><a href="#">Iniciar Sesión</a></li>
                 <li><a href="#">Términos y condiciones</a></li>
             </ul>
         </div>
 
         <div class="footer-section">
-            <h4>Redes Sociales</h4>
-            <p><a href="#">Facebook</a> · <a href="#">Instagram</a> · <a href="#">Twitter</a></p>
+            <h4>Contacto y Redes</h4>
+            <p><i class="fa fa-map"></i> San Luis 1234, Rosario, Santa Fe</p>
+            <p><i class="fa fa-phone"></i> +54 341 123-4567</p>
+            <p><i class="fa fa-envelope"></i> contacto@plazashopping.com.ar</p>
+            <p><a href="#"><i class="fa-brands fa-instagram"></i> Instagram</a></p>
         </div>
     </div>
     <div class="footer-bottom">
-        © 2025 Plaza Shopping Rosario - Todos los derechos reservados.
+        © 2025 Rosario Plaza Shopping - Todos los derechos reservados.
     </div>
 </footer>
 

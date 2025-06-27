@@ -8,7 +8,7 @@ $rubro = $_GET['rubro'] ?? '';
 $diasSeleccionados = $_GET['dias'] ?? [];
 
 // SQL
-$sql = "SELECT promociones.*, locales.nombreLocal, locales.rubroLocal, locales.logo FROM promociones INNER JOIN locales ON promociones.codLocal = locales.codLocal WHERE estadoPromo = 'aprobada'";
+$sql = "SELECT promociones.*, locales.nombreLocal, locales.rubroLocal, locales.logo FROM promociones INNER JOIN locales ON promociones.codLocal = locales.codLocal WHERE CURDATE() <= fechaHastaPromo AND estadoPromo = 'aprobada'";
 
 // Filtro por rubro
 if (!empty($rubro)) {
