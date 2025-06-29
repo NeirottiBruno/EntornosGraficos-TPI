@@ -19,25 +19,26 @@ function mostrarTarjetaPromo($promo, $conexion, $usuarioLogueado, $codUsuario, $
                 <p class="caracteristicas"><strong>Válido hasta:</strong> <?= formatearFechaManual($promo["fechaHastaPromo"]) ?></p>
             </div>
             <?php
-            $codPromo = $promo['codPromo'];
-            $sqlUso = "SELECT estado, codigoGenerado FROM uso_promociones WHERE codPromo = $codPromo AND codUsuario = $codUsuario";
-            $resUso = $conexion->query($sqlUso);
             $estadoUso = null;
             $codigoUso = null;
-
-            if ($resUso && $resUso->num_rows > 0) {
-                $rowUso = $resUso->fetch_assoc();
-                $estadoUso = $rowUso['estado'];
-                $codigoUso = $rowUso['codigoGenerado'];
+            
+            if ($usuarioLogueado) {
+                $codPromo = $promo['codPromo'];
+                $sqlUso = "SELECT estado, codigoGenerado FROM uso_promociones WHERE codPromo = $codPromo AND codUsuario = $codUsuario";
+                $resUso = $conexion->query($sqlUso);
+            
+                if ($resUso && $resUso->num_rows > 0) {
+                    $rowUso = $resUso->fetch_assoc();
+                    $estadoUso = $rowUso['estado'];
+                    $codigoUso = $rowUso['codigoGenerado'];
+                }
             }
 
             $niveles = ['Inicial' => 1, 'Medium' => 2, 'Premium' => 3];
             $nivelCliente = $niveles[$categoriaUsuario] ?? 0;
             $nivelPromo = $niveles[$promo['categoriaCliente']] ?? 0;
 
-            if ($nivelCliente == 0) {
-                echo "";
-            } else if ($nivelCliente >= $nivelPromo) {
+            if ($nivelCliente >= $nivelPromo) {
                 if ($estadoUso === 'aprobada') {
                     echo "<div class='alert alert-success'>Aprobada. Código de promoción: <strong>$codigoUso</strong></div>";
                 } elseif ($estadoUso === 'pendiente') {
@@ -54,7 +55,12 @@ function mostrarTarjetaPromo($promo, $conexion, $usuarioLogueado, $codUsuario, $
                     </form>';
                 }
             } else {
-                echo "<div class='alert alert-danger'>Tu categoría no puede solicitar esta promoción.</div>";
+                if ($usuarioLogueado){
+                    echo "<div class='alert alert-danger'>Tu categoría no puede solicitar esta promoción.</div>";
+                }
+                else {
+                    echo "";
+                }       
             }
             ?>
         </div>

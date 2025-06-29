@@ -8,7 +8,7 @@ $rubro = $_GET['rubro'] ?? '';
 $diasSeleccionados = $_GET['dias'] ?? [];
 
 // SQL
-$sql = "SELECT promociones.*, locales.nombreLocal, locales.rubroLocal, locales.logo FROM promociones INNER JOIN locales ON promociones.codLocal = locales.codLocal WHERE CURDATE() <= fechaHastaPromo AND estadoPromo = 'aprobada'";
+$sql = "SELECT promociones.*, locales.nombreLocal, locales.rubroLocal, locales.logo FROM promociones INNER JOIN locales ON promociones.codLocal = locales.codLocal WHERE CURDATE() <= promociones.fechaHastaPromo AND promociones.estadoPromo = 'aprobada'";
 
 // Filtro por rubro
 if (!empty($rubro)) {
@@ -56,10 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solicitar']) && $usua
 }
 ?>
 
+<title>Promociones - Rosario Plaza Shopping</title>
 
 <div class="container my-4">
     <?php if ($codUsuario == null): ?>
-        <div class="alert alert-info" style="margin-bottom: 2rem !important;">Inicia sesión para solicitar una promoción.</div>
+        <div class="alert alert-info" style="margin-bottom: 2rem !important;">Inicia sesión como cliente para solicitar una promoción.</div>
     <?php endif; ?>
 
     <div class="row">

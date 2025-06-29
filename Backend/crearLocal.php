@@ -7,7 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ubicacion = $conexion->real_escape_string($_POST['ubicacionLocal']);
     $rubro = $conexion->real_escape_string($_POST['rubroLocal']);
     $descripcion = $conexion->real_escape_string($_POST['descripcionLocal']);
-    $codUsuario = intval($_POST['codUsuario']);
 
     if (isset($_FILES['logo']) && $_FILES['logo']['error'] === 0) {
         $nombreArchivo = basename($_FILES['logo']['name']);
@@ -19,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $sql = "INSERT INTO locales (nombreLocal, ubicacionLocal, rubroLocal, codUsuario, descripcionLocal, logo)
-            VALUES ('$nombre', '$ubicacion', '$rubro', $codUsuario, '$descripcion', '$nombreArchivo')";
+            VALUES ('$nombre', '$ubicacion', '$rubro', NULL, '$descripcion', '$nombreArchivo')";
 
     if ($conexion->query($sql)) {
         echo json_encode(['ok' => true]);

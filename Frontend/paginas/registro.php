@@ -6,6 +6,8 @@ include('../../Backend/bd.php');
 $mensaje = $_GET['error'] ?? '';
 ?>
 
+<title>Registro - Rosario Plaza Shopping</title>
+
 <section class="position-relative" style="height: 420px; overflow: hidden;">
     <img src="../assets/imagen/banner.jpg" class="d-block w-100 h-100" alt="Banner principal" style="object-fit: cover; filter: brightness(0.7);">
     <div class="position-absolute top-50 start-50 translate-middle text-white text-center" style="padding: 2.5rem 2rem; border-radius: 1.5rem; width: 90%; max-width: 700px;">

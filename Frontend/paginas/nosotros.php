@@ -1,5 +1,7 @@
 <?php include('../componentes/encabezado.php'); ?>
 
+<title>Nosotros - Rosario Plaza Shopping</title>
+
 <!-- Banner -->
 <section class="position-relative" style="height: 420px; overflow: hidden;">
     <img src="../assets/imagen/banner.jpg" class="d-block w-100 h-100" alt="Banner principal" style="object-fit: cover; filter: brightness(0.7);">

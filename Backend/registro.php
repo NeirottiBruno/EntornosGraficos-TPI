@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 include('bd.php');
 
@@ -15,12 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   } elseif (strlen($pass) < 6) {
     $mensaje = "La contraseña debe tener al menos 6 caracteres.";
   } else {
-    $hash = password_hash($pass, PASSWORD_DEFAULT);
     $categoriaCliente = ($tipoUsuario === 'cliente') ? 'Inicial' : null;
     $estadoCuenta = ($tipoUsuario === 'cliente') ? 'activo' : 'pendiente';
 
-    $stmt = $conexion->prepare("INSERT INTO usuarios (nombreUsuario, claveUsuario, tipoUsuario, categoriaCliente, estadoCuenta) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $email, $hash, $tipoUsuario, $categoriaCliente, $estadoCuenta);
+    $stmt = $conexion->prepare("INSERT INTO usuarios (nombreUsuario, emailUsuario, claveUsuario, tipoUsuario, categoriaCliente, estadoCuenta) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $nombre, $email, $pass, $tipoUsuario, $categoriaCliente, $estadoCuenta);
 
     if ($stmt->execute()) {
       if ($estadoCuenta === 'activo') {

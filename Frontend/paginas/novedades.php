@@ -7,6 +7,8 @@ $sql = "SELECT * FROM novedades ORDER BY fecha_publicacion DESC";
 $result = $conexion->query($sql);
 ?>
 
+<title>Novedades - Rosario Plaza Shopping</title>
+
 <section class="position-relative" style="height: 420px; overflow: hidden;">
     <img src="../assets/imagen/banner.jpg" class="d-block w-100 h-100" alt="Banner principal" style="object-fit: cover; filter: brightness(0.7);">
     <div class="position-absolute top-50 start-50 translate-middle text-white text-center" style="padding: 2.5rem 2rem; border-radius: 1.5rem; width: 90%; max-width: 700px;">
@@ -20,7 +22,7 @@ $noticiasPorPagina = 4;
 $paginaActual = isset($_GET['pagina']) ? max(1, intval($_GET['pagina'])) : 1;
 
 // Contar total de novedades
-$totalSql = "SELECT COUNT(*) as total FROM novedades";
+$totalSql = "SELECT COUNT(*) as total FROM novedades WHERE fecha_publicacion >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)"; // Nuestro vencimiento es interno (no en la tabla), de tres meses para acá.
 $totalResult = $conexion->query($totalSql);
 $totalFilas = $totalResult ? $totalResult->fetch_assoc()['total'] : 0;
 $totalPaginas = ceil($totalFilas / $noticiasPorPagina);
@@ -29,7 +31,7 @@ $totalPaginas = ceil($totalFilas / $noticiasPorPagina);
 $offset = ($paginaActual - 1) * $noticiasPorPagina;
 
 // Consultar novedades para la página actual
-$sqlPaginado = "SELECT * FROM novedades ORDER BY fecha_publicacion DESC LIMIT $noticiasPorPagina OFFSET $offset";
+$sqlPaginado = "SELECT * FROM novedades WHERE fecha_publicacion >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH) ORDER BY fecha_publicacion DESC LIMIT $noticiasPorPagina OFFSET $offset";
 $resultPaginado = $conexion->query($sqlPaginado);
 ?>
 

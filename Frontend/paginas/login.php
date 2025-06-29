@@ -3,6 +3,8 @@ include('../componentes/encabezado.php');
 include('../../Backend/bd.php');
 ?>
 
+<title>Iniciar Sesión - Rosario Plaza Shopping</title>
+
 <section class="position-relative" style="height: 420px; overflow: hidden;">
     <img src="../assets/imagen/banner.jpg" class="d-block w-100 h-100" alt="Banner principal" style="object-fit: cover; filter: brightness(0.7);">
     <div class="position-absolute top-50 start-50 translate-middle text-white text-center" style="padding: 2.5rem 2rem; border-radius: 1.5rem; width: 90%; max-width: 700px;">
@@ -21,13 +23,42 @@ include('../../Backend/bd.php');
       <?php endif; ?>
       <br>
       <form action="../../Backend/login.php" method="POST">
-        <input type="email" name="nombreUsuario" class="form-control mb-2" placeholder="Email" required>
+        <input type="email" name="emailUsuario" class="form-control mb-2" placeholder="Email" required>
         <input type="password" name="claveUsuario" class="form-control" placeholder="Contraseña" required>
         <div class="mt-4" style="display: flex; justify-content: space-between;">
           <button class="btn btn-success">Iniciar Sesión</button>
-          <a class="small d-block text-end" href="registro.php">¿Aún no tenés una cuenta?</a>
+          <div class="d-flex justify-content-between">
+            <a class="small" href="registro.php">¿Aún no tenés una cuenta?</a>&nbsp;&nbsp;
+            <a class="small text-primary" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalOlvidaste">¿Olvidaste tu contraseña?</a>
+          </div>
         </div>
       </form>
+    </div>
+    
+    <!-- Modal "Olvidaste tu contraseña" -->
+    <div class="modal fade" id="modalOlvidaste" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form method="post" action="../../Backend/procesarOlvido.php">
+            <div class="modal-header">
+              <h5 class="modal-title">Recuperar Contraseña</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <p>Ingresá el correo electrónico con el que te registraste y te enviaremos una nueva contraseña.</p>
+              <div class="mb-3">
+                <label>Email registrado</label>
+                <input type="email" name="email" class="form-control" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Enviar contraseña</button>
+              ;
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
     <!-- Imagen -->

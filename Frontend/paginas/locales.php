@@ -27,6 +27,8 @@ $sql .= " ORDER BY nombreLocal " . ($orden === 'desc' ? 'DESC' : 'ASC');
 $resultado = $conexion->query($sql);
 ?>
 
+<title>Locales - Rosario Plaza Shopping</title>
+
 <div class="container my-4">
     <div class="row">
 

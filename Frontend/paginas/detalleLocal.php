@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solicitar']) && $usua
 }
 ?>
 
+<title>Detalle del Local - Rosario Plaza Shopping</title>
 
 <!-- BANNER -->
 <?php if ($local): ?>
@@ -81,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['solicitar']) && $usua
         <!-- Promociones activas -->
         <h4 class="mb-3">Promociones</h4>
         <?php if (!$usuarioLogueado): ?>
-            <div class="alert alert-info" style="margin-bottom: 2rem !important;">Inicia sesión para solicitar una promoción.</div>
+            <div class="alert alert-info" style="margin-bottom: 2rem !important;">Inicia sesión como cliente para solicitar una promoción.</div>
         <?php endif; ?>
         <div class="row detalleLocal">
             <?php if ($resultPromos && $resultPromos->num_rows > 0): ?>

@@ -1,14 +1,20 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include('../componentes/encabezado.php');
 include('../../Backend/bd.php');
 
-if (!isset($_SESSION['usuario']) || $_SESSION['tipoUsuario'] !== 'administrador') {
+if (!isset($_SESSION['usuario']) || $_SESSION['tipo_usuario'] !== 'administrador') {
     header('Location: login.php');
     exit;
 }
 
 $tabActiva = $_GET['tab'] ?? 'usuarios';
 ?>
+
+<title>Panel Administrador - Rosario Plaza Shopping</title>
 
 <div class="container my-4">
     <h3 class="mb-4">Panel de Administración</h3>
@@ -23,10 +29,22 @@ $tabActiva = $_GET['tab'] ?? 'usuarios';
             <button class="nav-link <?= ($tabActiva == 'reportes_local') ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#reportes_local" type="button">Reportes Locales</button>
             <button class="nav-link <?= ($tabActiva == 'reportes_cliente') ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#reportes_cliente" type="button">Reportes Clientes</button>
         </div>
-
+        
         <!-- Contenido de pestañas -->
         <div class="tab-content panel-content">
             <!-- GESTIÓN USUARIOS -->
+            
+            <?php
+            // Obtener todos los locales
+            $locales = [];
+            $localesRes = $conexion->query("SELECT codLocal, nombreLocal FROM locales WHERE codUsuario IS NULL");
+            if ($localesRes) {
+                while ($local = $localesRes->fetch_assoc()) {
+                    $locales[] = $local;
+                }
+            }
+            ?>
+            
             <div class="tab-pane fade <?= ($tabActiva == 'usuarios') ? 'show active' : '' ?>" id="usuarios">
                 <h5>Usuarios pendientes de aprobación</h5>
                 <table class="table table-bordered">
@@ -34,21 +52,28 @@ $tabActiva = $_GET['tab'] ?? 'usuarios';
                         <tr>
                             <th>Nombre</th>
                             <th>Email</th>
-                            <th>Estado actual</th>
+                            <th>Local</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $sql = "SELECT codUsuario, nombreUsuario, email, estadoCuenta FROM usuarios WHERE tipo_usuario = 'dueño de local' AND estadoCuenta != 'activo'";
+                        $sql = "SELECT codUsuario, nombreUsuario, emailUsuario FROM usuarios WHERE tipoUsuario = 'dueño de local' AND estadoCuenta != 'activo'";
                         $res = $conexion->query($sql);
                         if ($res && $res->num_rows > 0):
                             while ($usuario = $res->fetch_assoc()):
                         ?>
                         <tr id="usuario_<?= $usuario['codUsuario'] ?>">
                             <td><?= $usuario['nombreUsuario'] ?></td>
-                            <td><?= $usuario['email'] ?></td>
-                            <td><?= ucfirst($usuario['estadoCuenta']) ?></td>
+                            <td><?= $usuario['emailUsuario'] ?></td>
+                            <td>
+                                <select class="form-select form-select-sm local-select" data-id="<?= $usuario['codUsuario'] ?>">
+                                    <option value="">-- Seleccionar local --</option>
+                                    <?php foreach ($locales as $local): ?>
+                                        <option value="<?= $local['codLocal'] ?>"><?= $local['nombreLocal'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
                             <td>
                                 <button class="btn btn-success btn-sm aprobar-usuario" data-id="<?= $usuario['codUsuario'] ?>">Aprobar</button>
                             </td>
@@ -103,7 +128,7 @@ $tabActiva = $_GET['tab'] ?? 'usuarios';
 
                     <div class="row g-3">
                         <?php
-                        $sql = "SELECT l.*, u.nombreUsuario FROM locales l INNER JOIN usuarios u ON l.codUsuario = u.codUsuario";
+                        $sql = "SELECT l.*, u.nombreUsuario FROM locales l LEFT JOIN usuarios u ON l.codUsuario = u.codUsuario";
                         $res = $conexion->query($sql);
                         if ($res && $res->num_rows > 0):
                             while ($local = $res->fetch_assoc()):
@@ -113,9 +138,9 @@ $tabActiva = $_GET['tab'] ?? 'usuarios';
                                 <div>
                                     <img src="../assets/imagen/<?= $local['logo'] ?>" alt="Logo" style="max-height: 30px;"><br>
                                     <strong><?= $local['nombreLocal'] ?></strong><br>
-                                    <small><strong>Rubro:</strong> <?= $local['rubroLocal'] ?></small><br>
+                                    <small style="text-transform: capitalize;"><strong>Rubro:</strong> <?= $local['rubroLocal'] ?></small><br>
                                     <small><strong>Ubicación:</strong> <?= $local['ubicacionLocal'] ?></small><br>
-                                    <small><strong>Usuario:</strong> <?= $local['nombreUsuario'] ?></small><br>
+                                    <small><strong>Usuario:</strong> <?= $local['nombreUsuario'] ?? 'Sin asignar' ?></small><br>
                                     <small><strong>Descripción:</strong> <?= $local['descripcionLocal'] ?></small>
                                 </div>
                                 <div class="mt-2">
@@ -154,17 +179,6 @@ $tabActiva = $_GET['tab'] ?? 'usuarios';
                                             $rubros = ['indumentaria', 'accesorios', 'comida', 'tecnología'];
                                             foreach ($rubros as $r) {
                                                 echo "<option value='$r'>" . ucfirst($r) . "</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label>Usuario Dueño</label>
-                                        <select name="codUsuario" class="form-select" required>
-                                            <?php
-                                            $usrs = $conexion->query("SELECT codUsuario, nombreUsuario FROM usuarios WHERE tipoUsuario = 'dueño de local' AND estadoCuenta = 'activo'");
-                                            while ($u = $usrs->fetch_assoc()) {
-                                                echo "<option value='{$u['codUsuario']}'>{$u['nombreUsuario']}</option>";
                                             }
                                             ?>
                                         </select>
@@ -259,6 +273,7 @@ $tabActiva = $_GET['tab'] ?? 'usuarios';
 
             <div class="tab-pane fade <?= ($tabActiva == 'reportes_local') ? 'show active' : '' ?>" id="reportes_local">
                 <h5>Reporte Global por Local</h5>
+                <button class="btn btn-outline-primary mb-3" onclick="imprimirReporteLocal()"><i class="fa fa-print"></i> Imprimir reporte</button>
                 
                 <table class="table table-striped table-bordered">
                     <thead>
@@ -295,6 +310,7 @@ $tabActiva = $_GET['tab'] ?? 'usuarios';
 
             <div class="tab-pane fade <?= ($tabActiva == 'reportes_cliente') ? 'show active' : '' ?>" id="reportes_cliente">             
                 <h5 class="mb-3">Reporte Global por Cliente</h5>
+                <button class="btn btn-outline-primary mb-3" onclick="imprimirReporteCliente()"><i class="fa fa-print"></i> Imprimir reporte</button>
 
                 <table class="table table-striped table-bordered">
                     <thead>
@@ -337,16 +353,25 @@ $tabActiva = $_GET['tab'] ?? 'usuarios';
 document.querySelectorAll('.aprobar-usuario').forEach(btn => {
     btn.addEventListener('click', async () => {
         const id = btn.dataset.id;
-        if (!confirm("¿Aprobar este usuario?")) return;
+        const select = document.querySelector(`.local-select[data-id="${id}"]`);
+        const local = select?.value;
+
+        if (!local) {
+            alert("Debes seleccionar un local antes de aprobar al usuario.");
+            return;
+        }
+
+        if (!confirm("¿Aprobar este usuario con el local asignado?")) return;
 
         const res = await fetch('../../Backend/aprobarUsuario.php', {
             method: 'POST',
-            body: new URLSearchParams({ id })
+            body: new URLSearchParams({ id, codLocal: local })
         });
 
         const json = await res.json();
         if (json.ok) {
             document.getElementById('usuario_' + id).remove();
+            window.location.reload();
         } else {
             alert("Error: " + json.error);
         }
@@ -371,6 +396,7 @@ document.querySelectorAll('.btn-accion').forEach(btn => {
         const json = await res.json();
         if (json.ok) {
             document.getElementById('promo_' + id).remove();
+            window.location.reload();
         } else {
             alert("Error: " + json.error);
         }
@@ -394,7 +420,7 @@ document.getElementById('formNuevoLocal').addEventListener('submit', async (e) =
     const json = await res.json();
     if (json.ok) {
         alert("Local creado correctamente");
-        window.reload();
+        window.location.reload();
     } else {
         alert("Error: " + json.error);
     }
@@ -424,15 +450,35 @@ document.querySelectorAll('.btn-eliminar-local').forEach(btn => {
 <script>
 document.querySelectorAll('[data-bs-toggle="pill"]').forEach(btn => {
     btn.addEventListener('shown.bs.tab', function (e) {
-        const target = e.target.getAttribute('data-bs-target'); // ej: '#locales'
+        const target = e.target.getAttribute('data-bs-target');
         const menu = document.querySelector('.panel-menu');
+        const pantalla = window.innerWidth;
 
+        // Asignar ancho específico según la pestaña
         if (target === '#locales') {
-            menu.style.width = '700px';
+            menu.style.width = pantalla < 1440 ? '950px' : '780px';
+        } else if (target === '#novedades') {
+            menu.style.width = pantalla < 1440 ? '1800px' : '1500px';
         } else {
             menu.style.width = '';
         }
     });
+});
+
+// Al cambiar de pestaña
+document.querySelectorAll('[data-bs-toggle="pill"]').forEach(btn => {
+    btn.addEventListener('shown.bs.tab', function (e) {
+        const target = e.target.getAttribute('data-bs-target');
+        ajustarAnchoPanel(target);
+    });
+});
+
+// Al cargar la página con pestaña activa
+window.addEventListener('DOMContentLoaded', () => {
+    const activeTab = document.querySelector('.panel-menu .nav-link.active')?.getAttribute('data-bs-target');
+    if (activeTab) {
+        ajustarAnchoPanel(activeTab);
+    }
 });
 </script>
 
@@ -478,5 +524,51 @@ document.querySelectorAll('.btn-eliminar-novedad').forEach(btn => {
 });
 </script>
 
+<!-- Imprimir Reporte Cliente -->
+<script>
+function imprimirReporteCliente() {
+    const contenido = document.querySelector('#reportes_cliente').innerHTML;
+    const ventana = window.open('', '', 'width=800,height=600');
+    ventana.document.write(`
+        <html>
+        <head>
+            <title>Cantidad de promociones usadas por Cliente</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+            <style>
+                body { padding: 20px; }
+                h5 { margin-bottom: 20px; }
+            </style>
+        </head>
+        <body onload="window.print(); setTimeout(() => window.close(), 100);">
+            ${contenido}
+        </body>
+        </html>
+    `);
+    ventana.document.close();
+}
+</script>
+<!-- Imprimir Reporte Local -->
+<script>
+function imprimirReporteLocal() {
+    const contenido = document.querySelector('#reportes_local').innerHTML;
+    const ventana = window.open('', '', 'width=800,height=600');
+    ventana.document.write(`
+        <html>
+        <head>
+            <title>Cantidad de promociones por Local</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+            <style>
+                body { padding: 20px; }
+                h5 { margin-bottom: 20px; }
+            </style>
+        </head>
+        <body onload="window.print(); setTimeout(() => window.close(), 100);">
+            ${contenido}
+        </body>
+        </html>
+    `);
+    ventana.document.close();
+}
+</script>
 
 <?php include('../componentes/pie.php'); ?>

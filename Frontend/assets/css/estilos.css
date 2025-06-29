@@ -79,12 +79,12 @@ body .top-header + .container{
     transition: background 0.3s;
 }
 
-.nav-link:hover {
+.navbar .nav-link:hover {
     color: #fe6309 !important;
     transition: .3s ease;
 }
 
-.nav-link.active {
+.navbar .nav-link.active {
     color: #fe6309 !important;
 }
 

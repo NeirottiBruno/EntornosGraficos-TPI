@@ -7,6 +7,7 @@ $sql = "SELECT * FROM novedades ORDER BY fecha_publicacion DESC LIMIT 3";
 $result = $conexion->query($sql);
 ?>
 
+<title>Inicio - Rosario Plaza Shopping</title>
 
 <section class="position-relative" style="height: 420px; overflow: hidden;">
     <img src="../assets/imagen/banner.jpg" class="d-block w-100 h-100" alt="Banner principal" style="object-fit: cover; filter: brightness(0.7);">
@@ -56,7 +57,7 @@ $result = $conexion->query($sql);
                         <div class="card h-100 shadow-sm novedad-card">
                             <?php if (!empty($noticia['imagen'])): ?>
                                 <img src="../assets/imagen/<?= htmlspecialchars($noticia['imagen']) ?>"
-                                     class="card-img-top"
+                                     class="card-img-top" alt="Imagen destacada de novedad"
                                      style="object-fit: cover; width: 100%; height: 220px; border-top-left-radius: .5rem; border-top-right-radius: .5rem;">
                             <?php endif; ?>
                             <div class="card-body">

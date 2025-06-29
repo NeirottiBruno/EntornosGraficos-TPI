@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include('../componentes/encabezado.php');
 include('../../Backend/bd.php');
 
@@ -41,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar_datos'])) {
 ?>
 
 
-
+<title>Panel Dueño - Rosario Plaza Shopping</title>
 
 <div class="container my-4">
     <h3 class="mb-4">Panel de Gestión del Local</h3>

@@ -16,6 +16,7 @@ $tipo_usuario = $_SESSION['tipo_usuario'] ?? null; // admin / dueño / cliente
 <link rel="stylesheet" href="../assets/fontawesome/css/fontawesome.css"/>
 <link rel="stylesheet" href="../assets/fontawesome/css/brands.css"/>
 <link rel="stylesheet" href="../assets/fontawesome/css/solid.css"/>
+<link rel="icon" type="image/x-icon" href="../assets/imagen/favicon.png">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -33,9 +34,9 @@ $tipo_usuario = $_SESSION['tipo_usuario'] ?? null; // admin / dueño / cliente
                     <a href="/Frontend/paginas/login.php"><i class="fa fa-sign-in"></i> Iniciar sesión</a>&nbsp;&nbsp;&nbsp;|&nbsp;
                     <a href="/Frontend/paginas/registro.php"><i class="fa fa-user"></i> Registrarse</a>
                 <?php else: ?>
-                    <?php if ($tipo_usuario === 'admin'): ?>
+                    <?php if ($tipo_usuario === 'administrador'): ?>
                         <a href="/Frontend/paginas/panelAdministrador.php"><i class="fa fa-cogs"></i> Panel Administración</a>
-                    <?php elseif ($tipo_usuario === 'dueño'): ?>
+                    <?php elseif ($tipo_usuario === 'dueño de local'): ?>
                         <a href="/Frontend/paginas/panelDueño.php"><i class="fa fa-store"></i> Mi Local</a>
                     <?php elseif ($tipo_usuario === 'cliente'): ?>
                         <a href="/Frontend/paginas/panelCliente.php"><i class="fa fa-user-circle"></i> Mi Perfil</a>
