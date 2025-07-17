@@ -24,7 +24,12 @@ include('../../Backend/bd.php');
       <br>
       <form action="../../Backend/login.php" method="POST">
         <input type="email" name="emailUsuario" class="form-control mb-2" placeholder="Email" required>
-        <input type="password" name="claveUsuario" class="form-control" placeholder="Contraseña" required>
+        <div class="input-group mb-2">
+          <input type="password" name="claveUsuario" id="claveUsuario" class="form-control" placeholder="Contraseña" required>
+          <button class="btn btn-outline-secondary" style="border-color: #dee2e6;" type="button" id="toggleClave">
+            <i class="fa fa-eye-slash" id="iconoClave"></i>
+          </button>
+        </div>
         <div class="mt-4" style="display: flex; justify-content: space-between;">
           <button class="btn btn-success">Iniciar Sesión</button>
           <div class="d-flex justify-content-between">
@@ -69,5 +74,19 @@ include('../../Backend/bd.php');
     </div>
   </div>
 </div>
+
+<!-- Mostrar/Ocultar contraseña -->
+<script>
+  const toggleBtn = document.getElementById('toggleClave');
+  const inputClave = document.getElementById('claveUsuario');
+  const icono = document.getElementById('iconoClave');
+
+  toggleBtn.addEventListener('click', () => {
+    const tipoActual = inputClave.getAttribute('type');
+    inputClave.setAttribute('type', tipoActual === 'password' ? 'text' : 'password');
+    icono.classList.toggle('fa-eye');
+    icono.classList.toggle('fa-eye-slash');
+  });
+</script>
 
 <?php include '../componentes/pie.php'; ?>

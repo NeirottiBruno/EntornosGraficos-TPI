@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar_datos'])) {
 <title>Panel Dueño - Rosario Plaza Shopping</title>
 
 <div class="container my-4">
-    <h3 class="mb-4">Panel de Gestión del Local</h3>
+    <h3 class="mb-4 pt-5">Panel de Gestión del Local</h3>
 
     <div class="panel-container">
         <!-- MENÚ LATERAL -->
@@ -246,6 +246,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar_datos'])) {
                         <?php endif; ?>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+
+    <h3 class="mb-4 pt-5">Gestión de Cuenta</h3>
+
+    <div class="container mb-5">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+            Cambiar Contraseña
+            </div>
+            <div class="card-body">
+            <?php if (isset($_GET['cambio'])): ?>
+                <?php if ($_GET['cambio'] == 'ok'): ?>
+                <div class="alert alert-success" style="margin-bottom: 1em !important;">Contraseña actualizada correctamente.</div>
+                <?php elseif ($_GET['cambio'] == 'error'): ?>
+                <div class="alert alert-danger" style="margin-bottom: 1em !important;">Las contraseñas no coinciden.</div>
+                <?php endif; ?>
+            <?php endif; ?>
+            <form method="POST" action="../../Backend/cambiarClave.php">
+                <input type="hidden" name="origen" value="<?= htmlspecialchars($_SERVER['REQUEST_URI']) ?>">
+                <div class="mb-3">
+                <label>Nueva Contraseña</label>
+                <input type="password" name="nuevaClave" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                <label>Confirmar Contraseña</label>
+                <input type="password" name="confirmarClave" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-secondary text-white">Guardar Nueva Contraseña</button>
+            </form>
             </div>
         </div>
     </div>
